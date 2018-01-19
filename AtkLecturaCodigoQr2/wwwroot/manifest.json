@@ -1,0 +1,18 @@
+﻿  {
+    "name": "LecturaCódigoQr",
+    "short_name": "CódigoQr",
+    "description": "Lectura de ´cófigo qr para estación y número de control",
+    "icons": [
+      {
+        "src": "images/images.png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "images/images512x512.jpg",
+        "sizes": "512x512"
+      }
+
+    ],
+    "display": "standalone",
+    "start_url": "/"
+}

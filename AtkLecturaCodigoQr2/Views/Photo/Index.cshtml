@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+{
+    @section scripts
+        {
+        <script type="text/javascript">
+        function UploadPic() {
+        $.ajax({
+            type: 'POST',
+            url: ("@Url.Content("~/Photo/Rebind")/"),
+            dataType: 'json',
+            success: function (data) {
+                $("#show").attr("src", data);
+                document.getElementById('Submit1').disabled = false;
+                alert("Photo Capture successfully!");
+            }
+        });
+    }
+
+    function Uploadsubmit() {
+        debugger;
+        var src = $('img').attr('src');
+        src_array = src.split('/');
+        src = src_array[4];
+        if (src != "") {
+            $.ajax({
+                type: 'POST',
+                url: ("@Url.Content("~/Photo/Index")/"),
+               dataType: 'json',
+               data: { Imagename: src },
+               success: function () { }
+           });
+            window.opener.location.href = "http://localhost:55694/Photo/Changephoto";
+            self.close();}}
+        </script>
+        <script type="text/javascript">
+            window.onload = load();
+            function load() {
+                debugger;
+            }
+             $("#Camera").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: "@Url.Content("~/lib/jquery/dist/jscam.swf")",
+                onTick: function () { },
+                onSave: function () {
+                    UploadPic();
+                },
+                onCapture: function () {
+                    webcam.save("@Url.Content("~/Photo/Capture")/");
+             },
+                debug: function () { },
+                onLoad: function () { }
+
+            });
+        </script>
+    }
+    <div class="container">
+        <div class="row">
+            <div id="Camera" class="col-md-1">
+                camara
+            </div>
+            <div class="col-md-1">
+                <input type="button" value="capture" onclick="webcam.capture()" />
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row"></div>
+    </div>
+
+}
